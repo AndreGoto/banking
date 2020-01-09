@@ -9,6 +9,7 @@ defmodule Banking.Application do
     children = [
       # Starts a worker by calling: Banking.Worker.start_link(arg)
       # {Banking.Worker, arg}
+      {Banking.Repo, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
