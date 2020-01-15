@@ -7,6 +7,7 @@ defmodule Banking.Account do
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :current_balance, :integer, default: 100_000
+    has_many :transactions, Banking.Transaction
     timestamps()
   end
 
@@ -24,6 +25,10 @@ defmodule Banking.Account do
     |> validate_confirmation(:password, required: true)
     |> hash_password
     |> changeset(params)
+  end
+
+  def current_balance_changeset(changeset) do
+    validate_number(changeset, :current_balance, greater_than_or_equal_to: 0)
   end
 
   defp hash_password(%Ecto.Changeset{changes: %{password: password}} = changeset) do
