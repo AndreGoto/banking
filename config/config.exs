@@ -10,6 +10,7 @@
 import Config
 
 import_config "../apps/banking/config/config.exs"
+import_config "../apps/banking_api/config/config.exs"
 
 # Sample configuration:
 #
