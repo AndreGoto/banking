@@ -41,7 +41,8 @@ defmodule BankingApi.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:banking, in_umbrella: true}
+      {:banking, in_umbrella: true},
+      {:guardian, "~> 2.0"}
     ]
   end
 end
