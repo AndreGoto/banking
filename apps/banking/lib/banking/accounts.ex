@@ -10,4 +10,13 @@ defmodule Banking.Accounts do
     |> Account.changeset_with_password(params)
     |> @repo.insert
   end
+
+  def get_by_id(id) do
+    case @repo.get_by(Account, id: id) do
+      nil ->
+        {:error, :not_found}
+      account ->
+        {:ok, account}
+    end
+  end
 end

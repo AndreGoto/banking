@@ -1,5 +1,6 @@
 defmodule BankingApiWeb.Auth.Guardian do
   use Guardian, otp_app: :banking_api
+  alias Banking.Accounts
 
   def subject_for_token(resource, _claims) do
     # You can use any value for the subject of your token but
@@ -24,5 +25,25 @@ defmodule BankingApiWeb.Auth.Guardian do
   end
   def resource_from_claims(_claims) do
     {:error, :reason_for_error}
+  end
+
+  def authenticate(id, password) do
+    with {:ok, account} <- Accounts.get_by_id(id) do
+      case validate_password(password, account.hashed_password) do
+        true ->
+          create_token(account)
+        false ->
+          {:error, :unauthorized}
+      end
+    end
+  end
+
+  defp validate_password(password, encrypted_password) do
+    Banking.Password.verify_with_hash(password, encrypted_password)
+  end
+
+  defp create_token(account) do
+    {:ok, token, _claims} = encode_and_sign(account)
+    {:ok, account, token}
   end
 end

@@ -21,4 +21,18 @@ defmodule Banking.AccountsTest do
       assert Repo.one(count_query) == before_count + 1
     end
   end
+
+  describe "get_by_id/1" do
+    test "return an account" do
+      {:ok, account} = Accounts.insert_account(%{
+        password: "12345678",
+        password_confirmation: "12345678",
+        email: "test@test.com"
+      })
+
+      {:ok, acc} = Accounts.get_by_id(account.id)
+
+      assert acc.id  == account.id
+    end
+  end
 end
