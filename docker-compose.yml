@@ -10,3 +10,13 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - ~/tmp/volumes/postgres:/var/lib/postgresql/data:delegated
+  app:
+    build:
+      context: .
+      target: builder
+    volumes:
+      - .:/app
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres

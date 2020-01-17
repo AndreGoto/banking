@@ -3,7 +3,7 @@ defmodule BankingApiWeb.V1.TransferController do
   alias Banking.Transactions
 
   def create(conn, %{"transaction" => transaction_params}) do
-    with {:ok, transaction} <- Transactions.insert_transfer_transaction(%{
+    with {:ok, _transaction} <- Transactions.insert_transfer_transaction(%{
       amount: transaction_params["amount"],
       kind: "transfer",
       account_from_id: transaction_params["account_from_id"],
