@@ -22,7 +22,7 @@ defmodule BankingApiWeb.V1.WithdrawControllerTest do
       assert json_response(conn, 201)
     end
 
-    test "returns 422 for an invalid withdraw" do
+    test "returns 422 for an invalid withdraw", %{conn: conn} do
       {:ok, account} = Banking.Accounts.insert_account(%{
         password: "12345678",
         password_confirmation: "12345678",

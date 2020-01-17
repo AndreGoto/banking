@@ -18,5 +18,6 @@ defmodule BankingApiWeb.Router do
   scope "/api/v1", BankingApiWeb do
     pipe_through [:api, :auth]
     resources "/withdraw", V1.WithdrawController, only: [:create]
+    resources "/transfer", V1.TransferController, only: [:create]
   end
 end
