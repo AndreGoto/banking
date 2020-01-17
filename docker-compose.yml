@@ -3,19 +3,13 @@ version: "3.7"
 services:
   postgres:
     image: postgres:9.6-alpine
-    ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - ~/tmp/volumes/postgres:/var/lib/postgresql/data:delegated
   app:
+    environment:
+      PGUSER: postgres
+      PGPORT: 5432
+      PGHOST: postgres
     build:
       context: .
-      target: builder
-    volumes:
-      - .:/app
     ports:
       - "4000:4000"
     depends_on:
